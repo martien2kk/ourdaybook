@@ -1,0 +1,1 @@
+.box{background:#fff;padding:30rpx;border-radius:24rpx}.date,.text,.category{display:block}.date,.category{color:#999;font-size:24rpx}.text{font-size:38rpx;font-weight:700;margin:18rpx 0}

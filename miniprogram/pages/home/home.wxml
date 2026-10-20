@@ -1,0 +1,110 @@
+<view class="page tab-page theme-{{user.theme}}">
+  <image wx:if="{{user.theme==='calm'}}" class="space-theme-bg" src="/assets/images/space-night-responsive-safe-v9.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='blue'}}" class="space-theme-bg blue-theme-bg" src="/assets/images/blue-cats-responsive-safe-v2-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='warm'}}" class="space-theme-bg warm-theme-bg" src="/assets/images/warm-rabbits-responsive-safe-v7-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:else class="space-theme-bg minimal-theme-bg" src="/assets/images/minimal-gentle-responsive-safe-v2.jpg" mode="aspectFill"/>
+  <custom-nav title="记录" theme="{{user.theme}}"/>
+  <view wx:if="{{!loaded&&loadingVisible}}" class="home-skeleton">
+    <view class="skeleton-line short"></view>
+    <view class="skeleton-line title-line"></view>
+    <view class="skeleton-card">
+      <view class="skeleton-photo"></view>
+      <view class="skeleton-line"></view>
+      <view class="skeleton-button"></view>
+    </view>
+  </view>
+  <view wx:elif="{{loaded&&!couple}}" class="empty card">
+    <block wx:if="{{user.profileMode==='personal'||user.settings.profileMode==='personal'}}">
+      <view class="section-title">先建立你的个人空间</view>
+      <view class="personal-empty-quote">一个人走过的路，也会成为珍贵的故事。</view>
+      <view class="muted">每天留下一张照片和一句话，慢慢收藏属于你的日子。以后想一起记录时，也可以邀请一位同行者。</view>
+      <button class="btn" bindtap="createPersonal">建立个人空间</button>
+    </block>
+    <block wx:else>
+      <view class="section-title">先建立你们的空间</view>
+      <view>创建邀请码，邀请另一半在自己的微信中加入。</view>
+      <button class="btn" bindtap="pair">前往双人空间</button>
+    </block>
+  </view>
+  <block wx:elif="{{loaded}}">
+    <view class="row top">
+      <view>
+        <view class="eyebrow">RECORD · {{task.dateKey}}</view>
+        <view class="muted">{{user.nickname}} · {{user.city}}</view>
+      </view>
+      <view class="tag">{{status.mode==='pairPending'?'已合并 · 明日生效':status.mode==='personal'?(status.hasSubmitted?'已收藏':'待记录'):(status.unlocked?'已解锁':status.hasSubmitted?'等待中':'待记录')}}</view>
+    </view>
+    <view class="card prompt">
+      <view class="prompt-meta">
+        <view class="muted">{{task.prompt.category}}</view>
+      </view>
+      <view class="title">{{task.prompt.text}}</view>
+      <view wx:if="{{!status.hasSubmitted&&!status.partnerSubmitted}}" class="refresh-row">
+        <view class="refresh-hint muted" wx:if="{{task.unlimitedRefresh}}">第 {{task.promptPosition}} / {{task.promptCount}} 题 · 测试模式：无限换题</view>
+        <view class="refresh-hint muted" wx:else>第 {{task.promptPosition}} / {{task.promptCount}} 题 · {{task.refreshRemaining?'还可发现 '+task.refreshRemaining+' 道新题':'3 次更换机会已用完'}}</view>
+        <button class="refresh-task-text" disabled="{{!task.switchAvailable||busy}}" bindtap="refreshTask">{{task.nextAction==='new'?'换一道题 ↻':task.nextAction==='cycle'?'回到第一题 ↻':'下一题 ↻'}}</button>
+      </view>
+      <view wx:else class="refresh-hint muted">{{status.mode==='pairPending'?(status.hasSubmitted?'今天的个人记录已收藏，双人模式将于明天生效':'今天仍按个人模式记录，双人模式将于明天生效'):status.mode==='personal'?'今天已收藏，今日题目已固定':'已有一方上传，今日题目已固定'}}</view>
+      <view wx:if="{{task.prompt.category==='截图'}}" class="screenshot-tip">上传前请遮住姓名、账号、地址、聊天内容等敏感信息。</view>
+    </view>
+    <view class="card">
+      <view class="section-title">{{status.mode==='personal'||status.mode==='pairPending'?'收藏今天的一页':'留下我的这一半'}}</view>
+      <view class="picker {{status.hasSubmitted?'locked':''}}" bindtap="choose">
+        <image wx:if="{{imagePath}}" class="photo" src="{{imagePath}}" mode="aspectFit"/>
+        <view wx:else class="empty">＋ 从相册选择或拍摄</view>
+      </view>
+      <button wx:if="{{imagePath}}" class="mini" bindtap="remove">移除照片</button>
+      <textarea class="input caption {{status.hasSubmitted?'locked-input':''}}" value="{{caption}}" bindinput="caption" disabled="{{status.hasSubmitted}}" maxlength="100" placeholder="写一句话（可选）"/>
+      <view class="muted count">{{caption.length}} / 100</view>
+      <button class="btn submit-btn {{status.hasSubmitted?'uploaded':''}}" loading="{{busy}}" disabled="{{status.hasSubmitted||busy}}" bindtap="submit">{{status.hasSubmitted?(status.mode==='personal'||status.mode==='pairPending'?'已收藏':'已上传'):busy?'正在上传':status.mode==='personal'||status.mode==='pairPending'?'收藏今天':'放好我的这一半'}}</button>
+    </view>
+    <view wx:if="{{status.mode==='pairPending'}}" class="card partner personal-space-card pending-pair-card">
+      <view class="section-title">双人空间将在 {{couple.pairingEffectiveDate}} 开启</view>
+      <view class="muted">今天双方仍各自收藏生活。生效后，你们将看到同一道题，并共同解锁彼此的新记录。</view>
+      <button wx:if="{{status.hasSubmitted}}" class="btn" bindtap="openUnlock">查看我的今天</button>
+      <button class="btn secondary" bindtap="pair">查看双人空间</button>
+    </view>
+    <view wx:elif="{{status.mode==='personal'}}" class="card partner personal-space-card">
+      <view class="section-title">一个人的日子，也值得被记住</view>
+      <view class="muted">把今天轻轻收好，未来回望时，它会替你证明生活曾如此丰盛。</view>
+      <button wx:if="{{status.hasSubmitted}}" class="btn" bindtap="openUnlock">查看我的今天</button>
+      <button class="btn secondary" bindtap="pair">邀请一位同行者</button>
+    </view>
+    <view wx:else class="card partner">
+      <view class="row">
+        <view>
+          <view class="section-title">另一座城市</view>
+          <view class="muted">{{status.partner ? status.partner.nickname : '等待伙伴加入'}}</view>
+        </view>
+        <view class="tag">{{status.partnerSubmitted?'已留下今天':'还在生活里取景'}}</view>
+      </view>
+      <view wx:if="{{!status.hasSubmitted}}" class="veil">提交自己的记录后，才能继续解锁</view>
+      <view wx:elif="{{!status.unlocked}}" class="veil">你的这一半已经放好了，等对方来拼完整今天。</view>
+      <button wx:if="{{status.unlocked}}" class="btn" bindtap="openUnlock">查看我们的今天</button>
+    </view>
+  </block>
+</view>
+
+<page-container show="{{cropVisible}}" position="bottom" round="true" overlay="true" close-on-slide-down="false" bind:beforeleave="closeCrop">
+  <view class="crop-editor theme-{{user.theme}}">
+    <view class="crop-editor-title">调整照片</view>
+    <view class="crop-editor-tip">拖动调整位置，双指缩放，双击重置</view>
+    <view class="crop-scene-card">
+      <view class="section-title">{{status.mode==='personal'||status.mode==='pairPending'?'收藏今天的一页':'留下我的这一半'}}</view>
+      <view id="liveCropFrame" class="crop-frame" catchtouchstart="cropTouchStart" catchtouchmove="cropTouchMove" catchtouchend="cropTouchEnd" catchtouchcancel="cropTouchCancel">
+        <image class="crop-backdrop" src="{{cropSource}}" mode="aspectFill"/>
+        <image class="crop-image" src="{{cropSource}}" mode="scaleToFill" style="{{cropStyle}}"/>
+        <view class="crop-grid"><view></view><view></view><view></view><view></view></view>
+      </view>
+      <view class="crop-result-note">这里显示的是记录页最终照片效果</view>
+    </view>
+    <view class="crop-actions">
+      <button class="crop-use" bindtap="useCrop" loading="{{cropBusy}}" disabled="{{cropBusy}}">使用照片</button>
+      <view class="crop-secondary-actions">
+        <button class="crop-cancel" bindtap="closeCrop" disabled="{{cropBusy}}">取消</button>
+        <button class="crop-reset" bindtap="resetCrop" disabled="{{cropBusy}}">重置</button>
+      </view>
+    </view>
+    <canvas type="2d" id="cropOutputCanvas" class="crop-output-canvas"></canvas>
+  </view>
+</page-container>

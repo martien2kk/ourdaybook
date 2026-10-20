@@ -1,0 +1,1 @@
+<view class="grid"><view wx:for="{{days}}" wx:key="dateKey" class="{{item.status}}" data-date="{{item.dateKey}}" bindtap="select">{{item.day||item.dateKey}}</view></view>

@@ -1,0 +1,22 @@
+.form-card{margin-top:30rpx}
+.list-heading{font-size:28rpx;font-weight:700;margin:38rpx 5rpx 18rpx}
+.meeting-card{display:flex;align-items:center;justify-content:space-between;gap:20rpx}
+.meeting-card.upcoming{border-left:8rpx solid #e86f61}
+.theme-calm .meeting-card.upcoming{border-left-color:#f08fb3}
+.theme-blue .meeting-card.upcoming{border-left-color:#8fb5ff}
+.meeting-main{flex:1}
+.meeting-main .section-title{margin:8rpx 0}
+.meeting-main .muted{margin-top:8rpx}
+.countdown{display:inline-block;background:#f1e9e2;color:#9b6159;border-radius:999rpx;padding:7rpx 16rpx;font-size:22rpx}
+.delete{background:transparent;color:#bd5b51;font-size:24rpx;padding:0 15rpx}
+.delete::after{border:0}
+.empty-card{text-align:center;padding:44rpx 25rpx}
+.theme-calm .countdown{background:rgba(240,143,179,.16);color:#f7b4cd;border:1rpx solid rgba(240,143,179,.26)}
+.theme-calm .delete{color:#f4a5c2}
+.theme-blue .countdown{background:rgba(143,181,255,.16);color:#c6d9ff;border:1rpx solid rgba(143,181,255,.25)}
+.theme-blue .delete{color:#c7d9ff}
+.theme-warm .meeting-card.upcoming{border-left-color:#c97968}
+.theme-warm .countdown{background:rgba(201,121,104,.13);color:#9b574a;border:1rpx solid rgba(201,121,104,.19)}
+.theme-minimal .meeting-card.upcoming{border-left-color:#9a725a}
+.theme-minimal .countdown{background:rgba(154,114,90,.1);color:#785743;border:1rpx solid rgba(154,114,90,.18)}
+.theme-minimal .delete{color:#69645f}

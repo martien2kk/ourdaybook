@@ -1,0 +1,49 @@
+<view class="page theme-{{user.theme}}">
+  <image wx:if="{{user.theme==='calm'}}" class="space-theme-bg" src="/assets/images/space-night-responsive-safe-v9.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='blue'}}" class="space-theme-bg blue-theme-bg" src="/assets/images/blue-cats-responsive-safe-v2-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='warm'}}" class="space-theme-bg warm-theme-bg" src="/assets/images/warm-rabbits-responsive-safe-v7-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:else class="space-theme-bg minimal-theme-bg" src="/assets/images/minimal-gentle-responsive-safe-v2.jpg" mode="aspectFill"/>
+  <view class="eyebrow">MEET AGAIN</view>
+  <view class="title">
+    <view>记录分开的每天，</view>
+    <view>也期待相见的那天。</view>
+  </view>
+
+  <view class="card form-card">
+    <view class="section-title">添加相遇计划或回忆</view>
+    <picker mode="date" value="{{date}}" bindchange="date">
+      <view class="input">{{date||'选择日期'}}</view>
+    </picker>
+    <input class="input" value="{{city}}" data-key="city" bindinput="field" maxlength="30" placeholder="相遇城市"/>
+    <input class="input" value="{{note}}" data-key="note" bindinput="field" maxlength="100" placeholder="留一句期待或回忆"/>
+    <button class="btn" bindtap="add">保存相遇日</button>
+  </view>
+
+  <view class="list-heading">接下来的相遇</view>
+  <view wx:if="{{!upcoming.length}}" class="empty-card card">
+    <view class="section-title">还没有下一次计划</view>
+    <view class="muted">选一个日期，让等待有一个可以抵达的方向。</view>
+  </view>
+  <view wx:for="{{upcoming}}" wx:key="id" class="card meeting-card upcoming">
+    <view class="meeting-main">
+      <view class="countdown">{{item.countdown}}</view>
+      <view class="section-title">{{item.city}}</view>
+      <view>{{item.date}}</view>
+      <view class="muted">{{item.note}}</view>
+    </view>
+    <button class="delete" data-id="{{item.id}}" bindtap="remove">删除</button>
+  </view>
+
+  <view class="list-heading">已经见过的日子</view>
+  <view wx:if="{{!past.length}}" class="empty-card card">
+    <view class="muted">过去的相遇会在这里慢慢累积。</view>
+  </view>
+  <view wx:for="{{past}}" wx:key="id" class="card meeting-card">
+    <view class="meeting-main">
+      <view class="section-title">{{item.city}}</view>
+      <view>{{item.date}}</view>
+      <view class="muted">{{item.note}}</view>
+    </view>
+    <button class="delete" data-id="{{item.id}}" bindtap="remove">删除</button>
+  </view>
+</view>

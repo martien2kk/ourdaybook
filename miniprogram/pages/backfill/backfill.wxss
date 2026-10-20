@@ -1,0 +1,8 @@
+.waiting-card,.undo-card{text-align:center;padding:48rpx 34rpx}
+.backfill-note{margin-bottom:22rpx}
+.picker{height:360rpx;border:2rpx dashed #dacdc2;border-radius:24rpx;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.picker .photo{width:100%;height:100%;border-radius:0}
+.caption{height:130rpx}.count{text-align:right}.mini{font-size:24rpx;color:#9a725a;background:transparent;border:0}.mini::after{border:0}
+.submit-btn{white-space:nowrap;min-width:300rpx;padding-left:34rpx;padding-right:34rpx}
+.undo-card .secondary{margin-top:18rpx;background:transparent;border:2rpx solid currentColor;box-shadow:none}
+.cancel-rewrite{display:block;margin:12rpx auto 0}

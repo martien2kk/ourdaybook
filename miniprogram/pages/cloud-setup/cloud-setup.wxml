@@ -1,0 +1,23 @@
+<view class="page theme-{{theme}}">
+  <image wx:if="{{theme==='calm'}}" class="space-theme-bg" src="/assets/images/space-night-responsive-safe-v9.jpg" mode="aspectFill"/>
+  <image wx:elif="{{theme==='blue'}}" class="space-theme-bg blue-theme-bg" src="/assets/images/blue-cats-responsive-safe-v2-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:elif="{{theme==='warm'}}" class="space-theme-bg warm-theme-bg" src="/assets/images/warm-rabbits-responsive-safe-v7-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:else class="space-theme-bg minimal-theme-bg" src="/assets/images/minimal-gentle-responsive-safe-v2.jpg" mode="aspectFill"/>
+  <view class="eyebrow">PHASE TWO</view>
+  <view class="title"><view>把共同的今天</view><view>同步到两台设备。</view></view>
+  <view class="notice">当前模式：{{mode}}　云环境 ID：{{env||'未填写'}}</view>
+  <view class="card">
+    <view class="section-title">接入顺序</view>
+    <view class="step">1　申请正式小程序 AppID</view>
+    <view class="step">2　开通微信云开发并创建环境</view>
+    <view class="step">3　建立 users、couples、dailyTasks、entries、meetings 集合</view>
+    <view class="step">4　部署登录、绑定、提交、解锁等云函数</view>
+    <view class="step">5　配置云存储私有权限</view>
+    <view class="step">6　填写 CLOUD_ENV_ID 并切换 APP_MODE</view>
+  </view>
+  <view class="card">
+    <view class="section-title">重要安全原则</view>
+    <view class="muted">云函数必须以调用者 openid 判断身份；不能信任前端 userId。未解锁前，服务端不得返回对方图片 fileID 或临时链接。</view>
+  </view>
+  <button class="btn secondary" bindtap="test">测试当前服务配置</button>
+</view>

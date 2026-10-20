@@ -1,0 +1,142 @@
+<view class="page tab-page theme-{{user.theme}}">
+  <image wx:if="{{user.theme==='calm'}}" class="space-theme-bg" src="/assets/images/space-night-responsive-safe-v9.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='blue'}}" class="space-theme-bg blue-theme-bg" src="/assets/images/blue-cats-responsive-safe-v2-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='warm'}}" class="space-theme-bg warm-theme-bg" src="/assets/images/warm-rabbits-responsive-safe-v7-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:else class="space-theme-bg minimal-theme-bg" src="/assets/images/minimal-gentle-responsive-safe-v2.jpg" mode="aspectFill"/>
+  <custom-nav title="{{isPairPending?'双人空间明日开启':isPersonal?'我的今天':'共同的今天'}}" theme="{{user.theme}}"/>
+  <view class="eyebrow">{{isPairPending?'PAIRING TOMORROW':isPersonal?'MY DAYS':'TOGETHER'}}</view>
+  <view class="title">{{isPairPending?'今天仍各自记录':isPersonal?'我的今天':'共同的今天'}}</view>
+
+  <view wx:if="{{viewState==='loading'}}" class="state-card card">
+    <view class="state-symbol">···</view>
+    <view class="section-title">{{isPersonal?'正在整理今天':'正在拼合今天'}}</view>
+  </view>
+
+  <view wx:elif="{{viewState==='unpaired'}}" class="state-card card">
+    <view class="state-symbol">＋</view>
+    <view class="section-title">{{isPersonal?'先建立你的个人空间':'这里还缺另一个人'}}</view>
+    <view class="muted">{{isPersonal?'每天留下照片和一句话，把一个人走过的路写成珍贵的故事。':'先创建双人空间，再邀请另一半加入。'}}</view>
+    <button wx:if="{{isPersonal}}" class="btn" bindtap="goRecord">返回记录页</button>
+    <button wx:else class="btn" bindtap="pair">建立双人空间</button>
+  </view>
+
+  <view wx:elif="{{viewState==='unsubmitted'}}">
+    <view class="card prompt-preview">
+      <view class="muted">{{task.dateKey}} · {{task.prompt.category}}</view>
+      <view class="section-title">{{task.prompt.text}}</view>
+    </view>
+    <view class="state-card card">
+      <view class="lock-symbol">◌</view>
+      <view class="section-title">{{isPairPending?'双人空间将在明天开启':isPersonal?'我的今天还没有收藏':'共同的今天还没有打开'}}</view>
+      <view class="muted">{{isPairPending?'今天双方仍按个人模式记录。先收藏自己的这一页，明天再开始共同记录。':isPersonal?'先留下一张今天的照片和一句话，就能收藏属于你的这一页。':'先留下你的这一半，才能继续解锁。这里不会提前加载对方的照片或文字。'}}</view>
+      <button class="btn" bindtap="goRecord">去记录</button>
+    </view>
+  </view>
+
+  <view wx:elif="{{viewState==='waiting'}}">
+    <view class="card prompt-preview">
+      <view class="muted">{{task.dateKey}} · {{task.prompt.category}}</view>
+      <view class="section-title">{{task.prompt.text}}</view>
+    </view>
+    <view class="card my-half">
+      <image src="{{status.myEntry.imagePath}}" mode="aspectFill"/>
+      <view class="half-caption">{{status.myEntry.caption||'今日一瞬'}}</view>
+      <view class="muted">你的这一半已经放好了</view>
+    </view>
+    <view class="state-card card">
+      <view class="waiting-dots"><text></text><text></text><text></text></view>
+      <view class="section-title">{{isPersonal?'正在收藏你的今天':'对方还在生活里取景'}}</view>
+      <view class="muted">{{isPersonal?'照片正在整理，请稍后再来看这一页。':'今天还差另一张照片。等双方完成后，这里会自动拼成共同的今天。'}}</view>
+      <button class="btn secondary" bindtap="goRecord">返回记录</button>
+    </view>
+  </view>
+
+  <view wx:elif="{{viewState==='unlocked'}}">
+    <view class="date-line">{{memory.dateKey}}</view>
+    <view class="section-title prompt-title">{{memory.task.prompt.text}}</view>
+    <view class="grid2 {{memory.mode==='personal'?'personal-today-grid':''}}">
+      <view wx:for="{{memory.entries}}" wx:key="id" class="half">
+        <image src="{{item.imagePath}}" mode="aspectFill"/>
+        <view class="half-identity">{{memory.users[index].nickname}}{{memory.users[index].city?' · '+memory.users[index].city:''}}</view>
+        <view class="half-caption-text">{{item.caption||'今日一瞬'}}</view>
+      </view>
+    </view>
+    <view wx:if="{{memory.mode!=='personal'}}" class="card meeting-entry" bindtap="openMeeting">
+      <view wx:if="{{nextMeeting}}" class="meeting-date">
+        <text class="meeting-day">{{nextMeeting.displayDay}}</text>
+        <text class="meeting-year">{{nextMeeting.displayYear}}</text>
+      </view>
+      <view class="meeting-copy">
+        <view class="eyebrow">NEXT MEETING</view>
+        <view class="section-title">下一次相遇</view>
+        <view wx:if="{{nextMeeting}}" class="muted">{{nextMeeting.summary}}</view>
+        <view wx:else class="muted">还没有计划下一次见面，点这里一起期待。</view>
+      </view>
+      <text class="meeting-arrow">›</text>
+    </view>
+    <view class="quote quote-switcher" bindtap="switchQuote">
+      <text class="quote-text">{{memory.shareText}}</text>
+      <text class="quote-switch-icon">↻</text>
+    </view>
+    <view class="themes">
+      <view wx:for="{{themes}}" wx:key="0" class="theme {{theme===item[0]?'active':''}}" data-theme="{{item[0]}}" bindtap="theme">{{item[1]}}</view>
+    </view>
+    <view class="location-option display-options">
+      <view class="display-option-row">
+        <view>
+          <view>在卡片中显示文案</view>
+          <view class="muted">仅控制卡片显示，页面仍可切换和复制</view>
+        </view>
+        <view class="toggle-control">
+          <text class="switch-state {{showQuote?'on':''}}">{{showQuote?'已开启':'已关闭'}}</text>
+          <switch checked="{{showQuote}}" bindchange="quoteVisibility" color="{{user.theme==='minimal'?'#9a725a':user.theme==='calm'?'#f08fb3':user.theme==='blue'?'#8fb5ff':'#c97968'}}"/>
+        </view>
+      </view>
+      <view class="display-option-row">
+        <view>
+          <view>在卡片中显示城市</view>
+          <view class="muted">{{memory.mode==='personal'?'显示你手动填写的城市':'仅显示双方手动填写并允许展示的城市'}}</view>
+        </view>
+        <view class="toggle-control">
+          <text class="switch-state {{showLocation?'on':''}}">{{showLocation?'已开启':'已关闭'}}</text>
+          <switch checked="{{showLocation}}" bindchange="location" color="{{user.theme==='minimal'?'#9a725a':user.theme==='calm'?'#f08fb3':user.theme==='blue'?'#8fb5ff':'#c97968'}}"/>
+        </view>
+      </view>
+    </view>
+    <canvas type="2d" id="cardCanvas" class="canvas canvas-source"></canvas>
+    <canvas type="2d" id="cardCanvasFull" class="canvas canvas-full-{{theme}} canvas-source"></canvas>
+    <image wx:if="{{previewPath}}" class="canvas-preview" src="{{previewPath}}" mode="widthFix"/>
+    <view wx:else class="canvas-placeholder muted">正在生成卡片…</view>
+    <button class="btn" bindtap="save">保存卡片到相册</button>
+    <button class="btn secondary" bindtap="copy">复制分享文案</button>
+    <view wx:if="{{isPairPending&&memory.mode==='personal'}}" class="state-card card personal-space-note">
+      <view class="section-title">双人空间将于 {{couple.pairingEffectiveDate}} 开启</view>
+      <view class="muted">今天的内容仍作为个人记录保存。生效后，你们将看到同一道题，并开始共同解锁新的记录。</view>
+      <button class="btn secondary" bindtap="pair">查看双人空间</button>
+    </view>
+    <view wx:elif="{{memory.mode==='personal'}}" class="state-card card personal-space-note">
+      <view class="section-title">今天先由你认真收藏</view>
+      <view class="muted">过去的个人记录默认只有你能看见。想一起写新的日子时，可以邀请一位同行者。</view>
+      <button class="btn secondary" bindtap="pair">邀请一位同行者</button>
+    </view>
+  </view>
+
+  <view wx:elif="{{viewState==='error'}}" class="state-card card">
+    <view class="section-title">今天暂时没有拼好</view>
+    <view class="muted">请稍后重试，或返回记录页检查今天的状态。</view>
+    <button class="btn secondary" bindtap="load">重新加载</button>
+  </view>
+
+  <page-container show="{{previewVisible}}" position="bottom" round="{{false}}" overlay="{{true}}" close-on-slide-down="{{false}}" bindafterleave="closePreview">
+    <view class="preview-sheet" catchtouchmove="stop">
+      <scroll-view scroll-y class="preview-scroll">
+        <view class="preview-safe-top"></view>
+        <image class="preview-full-image" src="{{fullPreviewPath}}" mode="widthFix"/>
+      </scroll-view>
+      <view class="preview-actions">
+        <button class="preview-close" bindtap="closePreview">关闭</button>
+        <button class="preview-save preview-save-{{theme}} {{downloaded?'downloaded':''}}" loading="{{saving}}" disabled="{{downloaded}}" bindtap="confirmSave">{{downloaded?'已下载':'保存到相册'}}</button>
+      </view>
+    </view>
+  </page-container>
+</view>

@@ -1,0 +1,40 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/onboarding/onboarding",
+    "pages/tour/tour",
+    "pages/profile/profile",
+    "pages/pair/pair",
+    "pages/unlock/unlock",
+    "pages/card/card",
+    "pages/calendar/calendar",
+    "pages/memory/memory",
+    "pages/backfill/backfill",
+    "pages/meeting/meeting",
+    "pages/settings/settings",
+    "pages/announcements/announcements",
+    "pages/prompt-settings/prompt-settings",
+    "pages/privacy/privacy"
+  ],
+  "window": {
+    "navigationBarTitleText": "同日簿",
+    "navigationBarBackgroundColor": "#F7F4EE",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F7F4EE"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#8B857F",
+    "selectedColor": "#9A725A",
+    "backgroundColor": "#FBFAF7",
+    "list": [
+      { "pagePath": "pages/home/home", "text": "记录", "iconPath": "assets/icons/record.png", "selectedIconPath": "assets/icons/record-minimal-active.png" },
+      { "pagePath": "pages/unlock/unlock", "text": "我们", "iconPath": "assets/icons/together.png", "selectedIconPath": "assets/icons/together-minimal-active.png" },
+      { "pagePath": "pages/calendar/calendar", "text": "日历", "iconPath": "assets/icons/calendar.png", "selectedIconPath": "assets/icons/calendar-minimal-active.png" },
+      { "pagePath": "pages/settings/settings", "text": "设置", "iconPath": "assets/icons/settings.png", "selectedIconPath": "assets/icons/settings-minimal-active.png" }
+    ]
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}

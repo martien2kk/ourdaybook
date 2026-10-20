@@ -1,0 +1,1 @@
+.upload{height:360rpx;background:#f1ebe5;border-radius:22rpx;display:flex;align-items:center;justify-content:center;color:#8b7f75;overflow:hidden}.upload image{width:100%;height:100%}button{background:transparent;color:#b45d53;font-size:24rpx}button::after{border:0}

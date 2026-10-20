@@ -1,0 +1,10 @@
+.custom-nav-host{width:100%}
+.custom-nav{position:fixed;top:0;left:0;right:0;z-index:900;box-sizing:border-box;background:rgba(251,250,247,.92);border-bottom:1rpx solid rgba(110,105,99,.1);-webkit-backdrop-filter:blur(18rpx) saturate(.96);backdrop-filter:blur(18rpx) saturate(.96)}
+.custom-nav-bar{position:relative;display:flex;align-items:center;justify-content:center;box-sizing:border-box;padding:0 190rpx;font-size:28rpx;font-weight:500;color:#4d4844;white-space:nowrap}
+.custom-nav-back{position:absolute;left:0;top:0;width:64rpx;height:100%;display:flex;align-items:center;justify-content:center;color:#191919}.custom-nav-chevron{width:23rpx;height:23rpx;border-left:2rpx solid currentColor;border-bottom:2rpx solid currentColor;transform:rotate(45deg);box-sizing:border-box}
+.custom-nav.theme-warm{background:rgba(231,207,178,.52);border-bottom-color:rgba(151,99,69,.14);-webkit-backdrop-filter:blur(18rpx) saturate(.9);backdrop-filter:blur(18rpx) saturate(.9)}
+.custom-nav.theme-warm .custom-nav-bar{color:#4b352c}
+.custom-nav.theme-calm{background:rgba(17,18,20,.52);border-bottom-color:rgba(255,255,255,.12);-webkit-backdrop-filter:blur(18rpx) saturate(.9);backdrop-filter:blur(18rpx) saturate(.9)}
+.custom-nav.theme-calm .custom-nav-bar{color:#f4f0ea}
+.custom-nav.theme-blue{background:rgba(6,22,58,.86);border-bottom-color:rgba(174,202,255,.14)}
+.custom-nav.theme-blue .custom-nav-bar{color:#eff5ff}

@@ -1,0 +1,1 @@
+<view class="upload" bindtap="choose"><image wx:if="{{src}}" src="{{src}}" mode="aspectFill"/><text wx:else>{{busy?'正在处理图片…':'＋ 选择照片'}}</text></view><button wx:if="{{src}}" bindtap="remove">移除</button>

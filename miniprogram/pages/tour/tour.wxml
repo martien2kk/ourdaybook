@@ -1,0 +1,43 @@
+<view class="page tour-page theme-minimal">
+  <image class="space-theme-bg minimal-theme-bg" src="/assets/images/minimal-gentle-responsive-safe-v2.jpg" mode="aspectFill"/>
+
+  <view class="eyebrow">FEATURE PREVIEW</view>
+  <view class="title">功能预览</view>
+  <view class="notice privacy-note">无需填写资料，不会读取或上传你的个人信息。</view>
+
+  <view class="card demo-card">
+    <view class="demo-category">今日问题 · 所见</view>
+    <view class="section-title">拍下今天让你想停留一会儿的画面。</view>
+    <view class="demo-photos">
+      <view class="demo-half">
+        <image src="/assets/images/warm-rabbits-responsive-safe-v7-optimized-v1.jpg" mode="aspectFill"/>
+        <view class="demo-name">我的这一半</view>
+        <view class="muted">傍晚的光</view>
+      </view>
+      <view class="demo-half locked-half">
+        <image src="/assets/images/space-night-responsive-safe-v9.jpg" mode="aspectFill"/>
+        <view class="demo-name">另一半的今天</view>
+        <view class="muted">双方完成后解锁</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="preview-grid">
+    <view class="card preview-item">
+      <view class="preview-icon">日</view>
+      <view class="preview-copy"><view class="section-title">回忆日历</view><view class="muted">按日期查看已经完成的记录。</view></view>
+    </view>
+    <view class="card preview-item">
+      <view class="preview-icon">卡</view>
+      <view class="preview-copy"><view class="section-title">纪念卡片</view><view class="muted">生成简约、胶片或手账主题卡片。</view></view>
+    </view>
+    <view class="card preview-item">
+      <view class="preview-icon">私</view>
+      <view class="preview-copy"><view class="section-title">个人空间</view><view class="muted">一个人也能记录，内容默认仅自己可见。</view></view>
+    </view>
+  </view>
+
+  <button class="btn" bindtap="start">开始双人记录</button>
+  <button class="btn secondary" bindtap="single">从个人空间开始</button>
+  <button class="tour-back" bindtap="back">返回首页</button>
+</view>

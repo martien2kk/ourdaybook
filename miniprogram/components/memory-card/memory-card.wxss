@@ -1,0 +1,1 @@
+.memory{background:#fff;border-radius:24rpx;padding:16rpx}.photos{display:flex}.photos image{width:50%;height:220rpx}.photos image:first-child{border-radius:18rpx 0 0 18rpx}.photos image:last-child{border-radius:0 18rpx 18rpx 0}.memory>text{display:block;padding:18rpx}

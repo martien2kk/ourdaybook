@@ -1,0 +1,27 @@
+<view class="page theme-{{theme}}" wx:if="{{memory}}">
+  <image wx:if="{{theme==='calm'}}" class="space-theme-bg" src="/assets/images/space-night-responsive-safe-v9.jpg" mode="aspectFill"/>
+  <image wx:elif="{{theme==='blue'}}" class="space-theme-bg blue-theme-bg" src="/assets/images/blue-cats-responsive-safe-v2-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:elif="{{theme==='warm'}}" class="space-theme-bg warm-theme-bg" src="/assets/images/warm-rabbits-responsive-safe-v7-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:else class="space-theme-bg minimal-theme-bg" src="/assets/images/minimal-gentle-responsive-safe-v2.jpg" mode="aspectFill"/>
+  <view class="eyebrow">{{memory.dateKey}}</view>
+  <view class="title">{{memory.mode==='sharedPersonal'?'我们各自走过的这一天':memory.task.prompt.text}}</view>
+  <view class="grid2 {{memory.mode==='personal'?'personal-memory-grid':''}}">
+    <view wx:for="{{memory.entries}}" wx:key="id" class="card half">
+      <image src="{{item.imagePath}}" mode="aspectFill" lazy-load/>
+      <view wx:if="{{memory.mode==='sharedPersonal'}}" class="entry-prompt">{{item.taskPrompt}}</view>
+      <view class="caption">{{item.caption||'今日一瞬'}}</view>
+      <view class="muted">{{item.city?item.city+' · ':''}}{{item.nickname}}</view>
+      <view wx:if="{{item.backfillLabel}}" class="backfill-label">{{item.backfillLabel}}</view>
+    </view>
+  </view>
+  <view class="card center">
+    <view class="section-title">{{memory.mode==='personal'?'我的这一天':memory.mode==='sharedPersonal'?'彼此曾经的这一天':'共同的一天'}}</view>
+    <view class="muted memory-quote-switcher" bindtap="switchQuote">
+      <text class="memory-quote-text">{{memory.shareText}}</text>
+      <text class="memory-quote-icon">↻</text>
+    </view>
+    <button wx:if="{{memory.mode!=='sharedPersonal'}}" class="btn" bindtap="card">{{memory.mode==='personal'?'生成个人卡片':'生成双人卡片'}}</button>
+    <view wx:else class="muted shared-card-note">双方原始题目不同，此页面不生成统一题目的双人卡片。</view>
+    <button wx:if="{{memory.canDeleteOwn!==false}}" class="btn danger" bindtap="remove">删除我的记录</button>
+  </view>
+</view>

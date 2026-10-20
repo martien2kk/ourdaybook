@@ -1,0 +1,11 @@
+.code{display:block;font-size:70rpx;letter-spacing:14rpx;font-weight:700;margin:30rpx 0;user-select:text}.code-input{font-size:34rpx;letter-spacing:8rpx}.preview{margin-top:20rpx;padding:20rpx;background:#faf7f2;border-radius:18rpx;display:flex;flex-direction:column;gap:10rpx}
+.invite-expiry{text-align:center;margin:18rpx 0;color:#6f8b70}.invite-expiry.expired{color:#b85e59;font-weight:600}
+.pairing-effective{margin:18rpx 0;padding:16rpx 20rpx;border-radius:16rpx;background:rgba(111,139,112,.12);color:#6f8b70;text-align:center;font-size:24rpx;line-height:1.55}.theme-calm .pairing-effective{background:rgba(240,143,179,.1);color:#f2aac4}.theme-blue .pairing-effective{background:rgba(143,181,255,.1);color:#b9d0ff}
+.history-sharing-row{display:flex;align-items:center;justify-content:space-between;gap:20rpx;margin:20rpx 0;padding:22rpx 0;border-top:1rpx solid rgba(110,105,99,.14);border-bottom:1rpx solid rgba(110,105,99,.14)}.history-sharing-row>view{min-width:0;flex:1}.history-sharing-row .muted{margin-top:7rpx;font-size:22rpx;line-height:1.45}.history-sharing-row switch{flex:none;transform:scale(.88)}.theme-calm .history-sharing-row,.theme-blue .history-sharing-row{border-color:rgba(255,255,255,.12)}
+.merge-space{margin-top:30rpx;padding-top:28rpx;border-top:1rpx solid rgba(110,105,99,.14)}.merge-space .muted{margin:10rpx 0 18rpx;line-height:1.65}.merge-space .btn{margin-top:16rpx}.theme-calm .merge-space,.theme-blue .merge-space{border-top-color:rgba(255,255,255,.12)}
+.theme-calm .preview{background:rgba(255,255,255,.06);border:1rpx solid rgba(255,255,255,.1)}
+.theme-blue .preview{background:rgba(220,232,255,.06);border:1rpx solid rgba(174,202,255,.11)}
+.theme-warm .preview{background:rgba(255,252,245,.42);border:1rpx solid rgba(151,99,69,.1)}
+.theme-minimal .preview{background:rgba(251,249,245,.7);border:1rpx solid rgba(110,105,99,.1)}
+.history-restore-card{margin:22rpx 0;padding:22rpx;border-radius:18rpx;background:rgba(111,139,112,.1)}.history-restore-card .muted{margin:10rpx 0 16rpx;line-height:1.6}.history-restore-card .btn{width:360rpx;max-width:100%;margin-top:12rpx;padding-left:18rpx;padding-right:18rpx;font-size:25rpx;white-space:nowrap}
+.preview .btn{width:360rpx;max-width:100%}.preview .reunion-action{padding-left:18rpx;padding-right:18rpx;font-size:25rpx;white-space:nowrap}

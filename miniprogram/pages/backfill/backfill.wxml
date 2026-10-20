@@ -1,0 +1,26 @@
+<view class="page theme-{{user.theme}}" wx:if="{{loaded}}">
+  <image wx:if="{{user.theme==='calm'}}" class="space-theme-bg" src="/assets/images/space-night-responsive-safe-v9.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='blue'}}" class="space-theme-bg blue-theme-bg" src="/assets/images/blue-cats-responsive-safe-v2-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='warm'}}" class="space-theme-bg warm-theme-bg" src="/assets/images/warm-rabbits-responsive-safe-v7-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:else class="space-theme-bg minimal-theme-bg" src="/assets/images/minimal-gentle-responsive-safe-v2.jpg" mode="aspectFill"/>
+  <view class="eyebrow">{{date}}</view>
+  <view class="title">{{task.prompt.text}}</view>
+
+  <view wx:if="{{status.hasSubmitted}}" class="card waiting-card">
+    <view class="section-title">等待另一方</view>
+    <view class="muted">你已经留下了这一天。等另一半补写后，这页回忆会重新完整。</view>
+  </view>
+
+  <view wx:else class="card">
+    <view class="section-title">补写这一天</view>
+    <view class="muted backfill-note">那一天还在等待你的答案，补写后便会重新点亮。</view>
+    <view class="picker" bindtap="choose">
+      <image wx:if="{{imagePath}}" class="photo" src="{{imagePath}}" mode="aspectFill"/>
+      <view wx:else class="empty">＋ 从相册选择或拍摄</view>
+    </view>
+    <button wx:if="{{imagePath}}" class="mini" bindtap="removePhoto">移除照片</button>
+    <textarea class="input caption" value="{{caption}}" bindinput="captionInput" maxlength="100" placeholder="写一句话（可选）"/>
+    <view class="muted count">{{caption.length}} / 100</view>
+    <button class="btn submit-btn" loading="{{busy}}" disabled="{{busy}}" bindtap="submit">{{busy?'正在补写':'完成补写'}}</button>
+  </view>
+</view>

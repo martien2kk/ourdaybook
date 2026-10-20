@@ -1,0 +1,1 @@
+<view class="themes"><view wx:for="{{themes}}" wx:key="id" class="{{value===item.id?'active':''}}" data-id="{{item.id}}" bindtap="pick">{{item.name}}</view></view>

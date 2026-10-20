@@ -1,0 +1,1 @@
+<view class="box"><text class="date">{{date}}</text><text class="text">{{prompt.text}}</text><text class="category">{{prompt.category}}</text></view>

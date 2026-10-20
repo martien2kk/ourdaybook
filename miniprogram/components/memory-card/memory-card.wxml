@@ -1,0 +1,1 @@
+<view class="memory" bindtap="open"><view class="photos"><image wx:for="{{memory.entries}}" wx:key="id" src="{{item.imagePath}}" mode="aspectFill" lazy-load/></view><text>{{memory.dateKey}} · {{memory.task.prompt.text}}</text></view>

@@ -1,0 +1,58 @@
+.page{padding-bottom:calc(184rpx + env(safe-area-inset-bottom))}
+.year-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24rpx}
+.year-title{text-align:center}
+.year-number{font-size:46rpx;font-weight:700;margin-top:8rpx}
+.year-arrow{width:82rpx;height:82rpx;line-height:72rpx;padding:0;border-radius:50%;background:#fff;color:#655d57;font-size:58rpx;box-shadow:0 8rpx 24rpx rgba(70,55,45,.08)}
+.year-arrow::after{border:0}
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14rpx}
+.summary-card{text-align:center;padding:24rpx 8rpx}
+.summary-number{display:block;font-size:46rpx;font-weight:700;margin-bottom:6rpx}
+.summary-card .muted{font-size:22rpx}
+.legend{display:flex;align-items:center;justify-content:space-around;padding:22rpx 12rpx;font-size:23rpx;color:#786f68}
+.legend view{display:flex;align-items:center;gap:8rpx}
+.legend-dot,.status-dot{display:inline-block;flex:none;width:14rpx;height:14rpx;min-width:14rpx;min-height:14rpx;padding:0;border-radius:50%;box-sizing:border-box}
+.legend-dot.complete,.day-cell.complete .status-dot{background:#6f9272}
+.legend-dot.waiting,.day-cell.waiting .status-dot{background:linear-gradient(90deg,#c89855 50%,transparent 50%);border:1rpx solid #c89855}
+.legend-dot.empty,.day-cell.empty .status-dot{border:1rpx solid #aaa19a;background:transparent}
+.legend-dot.future,.day-cell.future .status-dot{background:#dedbd7}
+.month-card.current-month{border:2rpx solid rgba(111,146,114,.28)}
+.month-heading{display:flex;align-items:center;justify-content:space-between;font-size:32rpx;font-weight:700;margin-bottom:22rpx}
+.current-label{font-size:22rpx;font-weight:500;background:#e4eee4;color:#5c7d60;border-radius:999rpx;padding:7rpx 16rpx}
+.week-row,.day-grid{display:grid;grid-template-columns:repeat(7,1fr)}
+.week-row text{text-align:center;color:#9a928b;font-size:21rpx;padding-bottom:15rpx}
+.day-cell{height:72rpx;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7rpx;border-radius:14rpx}
+.legend .legend-dot.empty{padding:0;text-align:initial;color:inherit}
+.day-grid .day-cell.empty{padding:0;text-align:center;color:inherit}
+.day-number{font-size:25rpx}
+.day-cell.complete{color:#4f7655;background:#edf5ed}
+.day-cell.waiting{color:#a06f31;background:#faf2e4}
+.day-cell.future{color:#c4bfba}
+.day-cell.today{box-shadow:inset 0 0 0 2rpx #e86f61}
+.theme-calm .day-cell.today{box-shadow:inset 0 0 0 2rpx #f08fb3}
+.theme-blue .day-cell.today{box-shadow:inset 0 0 0 2rpx #8fb5ff}
+.back-current{position:fixed;right:30rpx;bottom:calc(124rpx + env(safe-area-inset-bottom));z-index:8;background:#e86f61;color:#fff;border:0;border-radius:999rpx;font-size:25rpx;box-shadow:0 8rpx 24rpx rgba(70,55,45,.18)}
+.back-current::after{border:0}
+.theme-calm .year-arrow{background:rgba(20,21,24,.7);color:#e5ded6;border:1rpx solid rgba(255,255,255,.13);box-shadow:0 10rpx 28rpx rgba(0,0,0,.3)}
+.theme-calm .legend{color:#c4bdb5}
+.theme-calm .week-row text{color:#918b85}
+.theme-calm .day-cell.complete{color:#a8cfaf;background:rgba(111,146,114,.16)}
+.theme-calm .day-cell.waiting{color:#d9b67e;background:rgba(200,152,85,.13)}
+.theme-calm .day-cell.future{color:#6f6b67}
+.theme-calm .current-label{background:rgba(111,146,114,.18);color:#b5d0b9}
+.theme-calm .back-current{background:rgba(240,143,179,.94);color:#25151e;border:1rpx solid rgba(255,205,224,.38)}
+.theme-blue .year-arrow{background:rgba(5,10,22,.68);color:#dbe7ff;border:1rpx solid rgba(174,202,255,.16);box-shadow:0 10rpx 28rpx rgba(0,5,18,.28)}
+.theme-blue .legend{color:#c4d2ec}
+.theme-blue .week-row text{color:#91a4c8}
+.theme-blue .day-cell.complete{color:#b9d0ff;background:rgba(104,148,229,.17)}
+.theme-blue .day-cell.waiting{color:#c9d8f5;background:rgba(129,158,213,.13)}
+.theme-blue .day-cell.future{color:#7082a5}
+.theme-blue .current-label{background:rgba(143,181,255,.17);color:#cadbff}
+.theme-blue .back-current{background:rgba(143,181,255,.94);color:#07142d;border:1rpx solid rgba(205,222,255,.4)}
+.theme-warm .year-arrow{background:rgba(255,250,239,.7);color:#6d5245;border:1rpx solid rgba(151,99,69,.13);box-shadow:0 10rpx 28rpx rgba(104,63,34,.14)}
+.theme-warm .day-cell.today{box-shadow:inset 0 0 0 2rpx #c97968}
+.theme-warm .back-current{background:rgba(201,121,104,.9);color:#fffaf4;border:1rpx solid rgba(245,198,180,.4)}
+.theme-minimal .year-arrow{background:rgba(252,250,246,.82);color:#625c57;border:1rpx solid rgba(110,105,99,.13);box-shadow:0 8rpx 22rpx rgba(90,82,74,.09)}
+.theme-minimal .day-cell.today{box-shadow:inset 0 0 0 2rpx #9a725a}
+.theme-minimal .back-current{background:rgba(154,114,90,.94);color:#fffdf9;border:1rpx solid rgba(190,155,132,.36)}
+.theme-minimal .legend{color:#77716a}
+.theme-minimal .week-row text{color:#9a938c}

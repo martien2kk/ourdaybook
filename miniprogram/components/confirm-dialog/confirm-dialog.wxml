@@ -1,0 +1,1 @@
+<view wx:if="{{show}}" class="mask"><view class="dialog"><text class="heading">{{title}}</text><text>{{content}}</text><view><button bindtap="cancel">取消</button><button class="confirm" bindtap="confirm">确认</button></view></view></view>

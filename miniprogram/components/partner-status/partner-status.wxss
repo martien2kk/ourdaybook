@@ -1,0 +1,1 @@
+.status{display:flex;justify-content:space-between;background:#f7f3ef;padding:22rpx;border-radius:18rpx;color:#766b63}

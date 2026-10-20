@@ -1,0 +1,41 @@
+<view class="page theme-{{user.theme}}">
+  <image wx:if="{{user.theme==='calm'}}" class="space-theme-bg" src="/assets/images/space-night-responsive-safe-v9.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='blue'}}" class="space-theme-bg blue-theme-bg" src="/assets/images/blue-cats-responsive-safe-v2-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='warm'}}" class="space-theme-bg warm-theme-bg" src="/assets/images/warm-rabbits-responsive-safe-v7-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:else class="space-theme-bg minimal-theme-bg" src="/assets/images/minimal-gentle-responsive-safe-v2.jpg" mode="aspectFill"/>
+  <view class="card">
+    <view class="section-title">每日问题大类</view>
+    <view class="muted category-note">日常、所见和心情固定开启；截图、回忆和创意可按喜好开启。同一天双方会看到相同题目。</view>
+    <view class="category-row" wx:for="{{categories}}" wx:key="name">
+      <text class="category-name">{{item.name}}</text>
+      <view class="category-control">
+        <view wx:if="{{item.required}}" class="required-badge">固定开启</view>
+        <switch wx:else checked="{{item.enabled}}" data-name="{{item.name}}" bindchange="toggleCategory" color="{{user.theme==='minimal'?'#9a725a':user.theme==='calm'?'#f08fb3':user.theme==='blue'?'#8fb5ff':'#c97968'}}"/>
+      </view>
+      <view class="category-action"><button wx:if="{{item.isCustom}}" class="remove" data-name="{{item.name}}" bindtap="removeCategory">×</button></view>
+    </view>
+    <view class="add-row">
+      <input class="input grow" value="{{newCategory}}" data-key="newCategory" bindinput="field" maxlength="12" disabled="{{!canAddCategory}}" placeholder="{{canAddCategory?'新增自定义大类':'最多添加 3 个'}}"/>
+      <button class="compact" disabled="{{!canAddCategory}}" bindtap="addCategory">添加</button>
+    </view>
+    <view wx:if="{{!canAddCategory}}" class="limit-note">最多添加 3 个自定义大类；如已超过，请删除多余大类。</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">添加自己的问题</view>
+    <view class="muted">每 7 天可以添加一道自己的问题，最多 80 个字符。</view>
+    <view wx:if="{{!canAddPrompt}}" class="cooldown-note">下次可添加：{{nextPromptDate}}</view>
+    <input class="input" value="{{newPrompt}}" data-key="newPrompt" bindinput="field" maxlength="80" disabled="{{!canAddPrompt}}" placeholder="{{canAddPrompt?'输入一道属于你们的问题':'本周已经添加过问题'}}"/>
+    <picker disabled="{{!canAddPrompt}}" range="{{categoryNames}}" bindchange="promptCategory"><view class="input picker-row">{{newPromptCategory||'选择大类'}}<text>›</text></view></picker>
+    <button class="btn secondary" disabled="{{!canAddPrompt}}" bindtap="addPrompt">添加自定义题目</button>
+    <button class="custom-toggle" bindtap="toggleCustomList">{{showCustomPrompts?'收起我的题目':'管理我的自定义题目'}}（{{customPrompts.length}}）</button>
+    <view wx:if="{{showCustomPrompts}}">
+      <view class="prompt-row" wx:for="{{customPrompts}}" wx:key="id" data-id="{{item.id}}" bindlongpress="editPrompt">
+        <view class="prompt-text"><text>{{item.text}}</text><text class="meta">{{item.category}} · 长按编辑</text></view>
+        <view class="category-action"><button class="remove" data-id="{{item.id}}" bindtap="removePrompt">×</button></view>
+      </view>
+      <view wx:if="{{!customPrompts.length}}" class="empty-small">还没有自定义题目</view>
+    </view>
+    <button class="btn danger" disabled="{{!customPrompts.length}}" bindtap="deleteAllPrompts">一键删除</button>
+  </view>
+</view>

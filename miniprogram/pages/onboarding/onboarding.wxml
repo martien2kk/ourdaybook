@@ -1,0 +1,23 @@
+<view wx:if="{{ready}}" class="page hero theme-{{theme}}">
+  <image wx:if="{{theme==='calm'}}" class="space-theme-bg" src="/assets/images/space-night-responsive-safe-v9.jpg" mode="aspectFill"/>
+  <image wx:elif="{{theme==='blue'}}" class="space-theme-bg blue-theme-bg" src="/assets/images/blue-cats-responsive-safe-v2-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:elif="{{theme==='warm'}}" class="space-theme-bg warm-theme-bg" src="/assets/images/warm-rabbits-responsive-safe-v7-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:else class="space-theme-bg minimal-theme-bg" src="/assets/images/minimal-gentle-responsive-safe-v2.jpg" mode="aspectFill"/>
+  <image class="mark app-icon" src="/assets/images/our-daybook-avatar-144.png" mode="aspectFill"/>
+  <view class="eyebrow">OUR DAYBOOK</view>
+  <view class="title"><view>两座城市，</view><view>共同组成今天。</view></view>
+  <view class="subtitle">每天回答同一个问题，各自留下一张照片。提交自己的这一半，才会逐渐看见对方的今天。</view>
+  <view class="steps card">
+    <view>01　每天同一道生活小题</view>
+    <view>02　一张照片和一句话</view>
+    <view>03　双方完成后共同解锁</view>
+    <view>04　慢慢累计成回忆日历</view>
+  </view>
+  <view class="notice">只记录你主动填写的城市。资料通过微信云开发安全同步。</view>
+  <button class="btn" bindtap="tour">功能预览</button>
+  <button class="btn secondary" bindtap="start">开始记录</button>
+  <button class="btn secondary" bindtap="toggleCloud">如何邀请另一半</button>
+  <view wx:if="{{showCloud}}" class="local">一人创建双人空间并分享邀请码，另一人输入相同的邀请码。双方每天分别提交后，共同解锁当天记录。如果目前单身，可以点击下方“单身入口”先完成资料；也可以邀请一位朋友，和你一起记录生活。</view>
+  <button class="btn secondary single-entry" bindtap="startSingle">单身入口</button>
+  <view class="privacy" bindtap="privacy">查看隐私说明</view>
+</view>

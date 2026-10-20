@@ -1,0 +1,74 @@
+<view class="page tab-page theme-{{user.theme}}">
+  <image wx:if="{{user.theme==='calm'}}" class="space-theme-bg" src="/assets/images/space-night-responsive-safe-v9.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='blue'}}" class="space-theme-bg blue-theme-bg" src="/assets/images/blue-cats-responsive-safe-v2-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='warm'}}" class="space-theme-bg warm-theme-bg" src="/assets/images/warm-rabbits-responsive-safe-v7-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:else class="space-theme-bg minimal-theme-bg" src="/assets/images/minimal-gentle-responsive-safe-v2.jpg" mode="aspectFill"/>
+  <custom-nav title="回忆日历" theme="{{user.theme}}"/>
+  <view class="year-header">
+    <button class="year-arrow" bindtap="previousYear" aria-label="上一年">‹</button>
+    <view class="year-title">
+      <view class="eyebrow">MEMORIES</view>
+      <view class="year-number">{{year}} 年</view>
+    </view>
+    <button class="year-arrow" bindtap="nextYear" aria-label="下一年">›</button>
+  </view>
+
+  <view class="summary-grid">
+    <view class="card summary-card">
+      <text class="summary-number">{{summary.complete}}</text>
+      <text class="muted">共同完成</text>
+    </view>
+    <view class="card summary-card">
+      <text class="summary-number">{{summary.waiting}}</text>
+      <text class="muted">仍在等待</text>
+    </view>
+    <view class="card summary-card">
+      <text class="summary-number">{{summary.bestStreak}}</text>
+      <text class="muted">年度最长连续</text>
+    </view>
+  </view>
+
+  <view class="legend card">
+    <view><text class="legend-dot complete"></text>完整</view>
+    <view><text class="legend-dot waiting"></text>等待</view>
+    <view><text class="legend-dot empty"></text>空白</view>
+    <view><text class="legend-dot future"></text>未来</view>
+  </view>
+
+  <view wx:if="{{loading}}" class="empty">正在整理这一年的回忆…</view>
+
+  <view wx:else class="year-list">
+    <view
+      wx:for="{{months}}"
+      wx:for-item="month"
+      wx:key="number"
+      id="month-{{month.number}}"
+      class="month-card card {{month.current?'current-month':''}}"
+    >
+      <view class="month-heading">
+        <text>{{month.label}}</text>
+        <text wx:if="{{month.current}}" class="current-label">本月</text>
+      </view>
+      <view class="week-row">
+        <text wx:for="{{weekdays}}" wx:for-item="weekday" wx:key="*this">{{weekday}}</text>
+      </view>
+      <view class="day-grid">
+        <view
+          wx:for="{{month.cells}}"
+          wx:for-item="day"
+          wx:key="key"
+          class="day-cell {{day.status}} {{day.today?'today':''}}"
+          data-date="{{day.dateKey}}"
+          data-status="{{day.status}}"
+          data-blank="{{day.blank}}"
+          bindtap="openDay"
+        >
+          <text wx:if="{{!day.blank}}" class="day-number">{{day.day}}</text>
+          <text wx:if="{{!day.blank}}" class="status-dot"></text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <button class="back-current" bindtap="goCurrent">回到本月</button>
+</view>

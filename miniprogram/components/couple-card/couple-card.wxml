@@ -1,0 +1,1 @@
+<view class="box"><text>双人空间</text><text class="code">{{couple.inviteCode}}</text><button bindtap="copy">复制邀请码</button></view>

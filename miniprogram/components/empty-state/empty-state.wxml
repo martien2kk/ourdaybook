@@ -1,0 +1,1 @@
+<view class="empty"><text class="heading">{{title}}</text><text>{{description}}</text><button wx:if="{{action}}" bindtap="action">{{action}}</button></view>

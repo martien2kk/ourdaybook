@@ -1,0 +1,4 @@
+.step{padding:20rpx 0;border-bottom:1rpx solid #eee7e0;line-height:1.5}.step:last-child{border:0}
+.theme-blue .step{border-bottom-color:rgba(160,195,255,.13)}
+.theme-warm .step{border-bottom-color:rgba(151,99,69,.12)}
+.theme-minimal .step{border-bottom-color:rgba(110,105,99,.12)}

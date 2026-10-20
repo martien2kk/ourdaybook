@@ -1,0 +1,19 @@
+{
+  "description": "OUR DAYBOOK noncommercial source-available demo",
+  "miniprogramRoot": "miniprogram/",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "compileType": "miniprogram",
+  "appid": "touristappid",
+  "projectname": "ourdaybook",
+  "setting": {
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "urlCheck": true
+  },
+  "libVersion": "3.17.0",
+  "scripts": {
+    "beforeUpload": "npm run check:production"
+  }
+}

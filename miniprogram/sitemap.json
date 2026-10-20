@@ -1,0 +1,4 @@
+{
+  "desc": "本地原型不开放索引",
+  "rules": [{ "action": "disallow", "page": "*" }]
+}

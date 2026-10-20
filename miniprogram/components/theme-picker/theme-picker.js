@@ -1,0 +1,1 @@
+Component({properties:{value:String},data:{themes:[{id:'minimal',name:'简约'},{id:'film',name:'胶片'},{id:'journal',name:'手账'}]},methods:{pick(e){this.triggerEvent('change',{value:e.currentTarget.dataset.id})}}})

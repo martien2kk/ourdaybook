@@ -1,0 +1,63 @@
+<view class="page theme-{{user.theme}}">
+  <image wx:if="{{user.theme==='calm'}}" class="space-theme-bg" src="/assets/images/space-night-responsive-safe-v9.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='blue'}}" class="space-theme-bg blue-theme-bg" src="/assets/images/blue-cats-responsive-safe-v2-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='warm'}}" class="space-theme-bg warm-theme-bg" src="/assets/images/warm-rabbits-responsive-safe-v7-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:else class="space-theme-bg minimal-theme-bg" src="/assets/images/minimal-gentle-responsive-safe-v2.jpg" mode="aspectFill"/>
+  <view class="notice">{{couple&&couple.spaceType==='personal'?'想一起记录时，可以把邀请码发给另一半或一位朋友。对方加入后，从新的日子开始共同记录；过去的个人记录默认仅自己可见。':'邀请码可发送给另一半，在对方微信中加入同一个双人空间。每个邀请码有效期为 7 天。'}}</view>
+  <view wx:if="{{couple}}" class="card">
+    <view class="eyebrow">YOUR SPACE</view>
+    <view class="section-title">{{couple.spaceType==='personal'?'我的个人空间':'双人空间已创建'}}</view>
+    <text class="code" user-select="true">{{couple.inviteCode}}</text>
+    <view class="muted">{{couple.members?couple.members.length:(couple.memberIds?couple.memberIds.length:1)}} / 2 位成员</view>
+    <view wx:if="{{couple.pairingEffectiveDate}}" class="pairing-effective">{{pairingActive?'双人模式已于 '+couple.pairingEffectiveDate+' 开启':'已完成合并，将于 '+couple.pairingEffectiveDate+' 起按双人模式记录'}}</view>
+    <view wx:if="{{historyRestoreNeedsApproval}}" class="history-restore-card">
+      <view class="section-title">恢复过去的共同回忆</view>
+      <view class="muted">对方希望恢复你们解绑前共同完成的记录。只有双方同意才会恢复；解绑期间的个人记录仍仅本人可见。</view>
+      <button class="btn" data-accept="true" bindtap="respondRestore">恢复共同回忆</button>
+      <button class="btn secondary" data-accept="false" bindtap="respondRestore">作为新的开始</button>
+    </view>
+    <view wx:if="{{historyRestoreWaiting}}" class="pairing-effective">恢复共同回忆的申请已发送，正在等待对方确认</view>
+    <view wx:if="{{couple.pairingEffectiveDate&&couple.spaceType==='pair'}}" class="history-sharing-row">
+      <view>
+        <view>允许对方查看合并前的记录</view>
+        <view class="muted">仅公开你自己的照片、原始题目和文案</view>
+      </view>
+      <switch checked="{{sharePrePairRecords}}" bindchange="shareHistory" color="{{user.theme==='minimal'?'#9a725a':user.theme==='calm'?'#f08fb3':user.theme==='blue'?'#8fb5ff':'#c97968'}}"/>
+    </view>
+    <view wx:if="{{(couple.members?couple.members.length:(couple.memberIds?couple.memberIds.length:1)) < 2}}" class="invite-expiry {{couple.inviteExpired?'expired':''}}">
+      {{couple.inviteExpired?'邀请码已过期':'有效期至 '+couple.inviteExpiresOn}}
+    </view>
+    <button wx:if="{{(couple.members?couple.members.length:(couple.memberIds?couple.memberIds.length:1)) < 2 && !couple.inviteExpired}}" class="btn" bindtap="copy">复制邀请码</button>
+    <button wx:if="{{(couple.members?couple.members.length:(couple.memberIds?couple.memberIds.length:1)) < 2}}" class="btn secondary" bindtap="renew">重新生成邀请码</button>
+    <view wx:if="{{couple.spaceType==='personal'}}" class="merge-space">
+      <view class="section-title">加入另一个个人空间</view>
+      <view class="muted">如果对方也已经建立个人空间，可输入对方的邀请码，将两个空间合并为双人空间。</view>
+      <input class="input code-input" value="{{code}}" bindinput="input" maxlength="6" placeholder="输入对方的 6 位邀请码"/>
+      <button class="btn secondary" bindtap="preview">查看对方空间</button>
+      <view wx:if="{{preview}}" class="preview">
+        <text>{{preview.creator.nickname}}</text>
+        <text>{{preview.creator.city}}</text>
+        <button class="btn {{preview.reunionAvailable?'reunion-action':''}}" bindtap="join">{{preview.reunionAvailable?'申请恢复共同回忆':'确认合并空间'}}</button>
+        <button wx:if="{{preview.reunionAvailable}}" class="btn secondary" bindtap="joinFresh">作为新的开始</button>
+      </view>
+    </view>
+    <button class="btn danger" bindtap="unbind">解除绑定</button>
+  </view>
+  <view wx:else>
+    <view class="card">
+      <view class="section-title">创建一个空间</view>
+      <view class="muted">生成 6 位邀请码，邀请另一半在 7 天内加入。</view>
+      <button class="btn" bindtap="create">生成邀请码</button>
+    </view>
+    <view class="card">
+      <view class="section-title">加入已有空间</view>
+      <input class="input code-input" value="{{code}}" bindinput="input" maxlength="6" placeholder="输入 6 位邀请码"/>
+      <button class="btn secondary" bindtap="preview">查看邀请</button>
+      <view wx:if="{{preview}}" class="preview">
+        <text>{{preview.creator.nickname}}</text>
+        <text>{{preview.creator.city}}</text>
+        <button class="btn" bindtap="join">确认加入</button>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,63 @@
+<view class="page tab-page theme-{{user.theme}}">
+  <image wx:if="{{user.theme==='calm'}}" class="space-theme-bg" src="/assets/images/space-night-responsive-safe-v9.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='blue'}}" class="space-theme-bg blue-theme-bg" src="/assets/images/blue-cats-responsive-safe-v2-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='warm'}}" class="space-theme-bg warm-theme-bg" src="/assets/images/warm-rabbits-responsive-safe-v7-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:else class="space-theme-bg minimal-theme-bg" src="/assets/images/minimal-gentle-responsive-safe-v2.jpg" mode="aspectFill"/>
+  <custom-nav title="设置" theme="{{user.theme}}"/>
+  <view class="row profile-head">
+    <view>
+      <view class="eyebrow">SETTINGS</view>
+      <view class="title">{{user.nickname}}</view>
+      <view wx:if="{{user.city}}" class="muted">{{user.city}}</view>
+    </view>
+    <view class="avatar">
+      <image wx:if="{{user.avatar}}" src="{{user.avatar}}" mode="aspectFill"/>
+      <text wx:else>{{initial}}</text>
+    </view>
+  </view>
+
+  <view class="card menu">
+    <view bindtap="profile">编辑资料 <text>›</text></view>
+    <view bindtap="pair">双人空间 <text>›</text></view>
+    <view bindtap="promptSettings">每日问题大类 <text>›</text></view>
+    <view bindtap="announcements">
+      <text>公告</text>
+      <view class="menu-tail"><text wx:if="{{announcementUnread}}" class="announcement-dot"></text><text>›</text></view>
+    </view>
+    <view class="feedback-row">
+      <text>用户反馈</text>
+      <text>›</text>
+      <button class="feedback-hit-area" open-type="feedback" aria-label="用户反馈"></button>
+    </view>
+  </view>
+  <view class="card data-delete-card">
+    <view wx:if="{{deletionPending}}" class="deletion-notice">
+      <view class="section-title">数据等待删除</view>
+      <view class="muted">可在 {{deletionDeadline}} 前恢复；超过该时间后将永久删除。</view>
+      <button class="btn secondary" bindtap="restoreData">恢复我的数据</button>
+    </view>
+    <button wx:else class="btn danger delete-data" bindtap="clear">删除我的全部数据</button>
+  </view>
+  <view wx:if="{{mockSwitcher}}" class="card mock-switch-card">
+    <view class="section-title">模拟用户</view>
+    <view class="muted">用于在同一台设备测试用户 A/B。单人空间和双人空间均可切换。</view>
+    <view class="mock-user-actions">
+      <button class="mock-user-btn {{mockUserLabel==='A'?'active':''}}" data-user="A" bindtap="switchMockUser">用户 A</button>
+      <button class="mock-user-btn {{mockUserLabel==='B'?'active':''}}" data-user="B" bindtap="switchMockUser">用户 B</button>
+    </view>
+  </view>
+  <view wx:if="{{debugTools}}" class="card debug-card">
+    <view class="section-title">测试日期</view>
+    <view class="muted">仅用于体验不同日期的每日记录和日历状态。</view>
+    <picker mode="date" value="{{settings.mockDate}}" start="2020-01-01" end="2035-12-31" bindchange="debugDate">
+      <view class="input debug-date-picker">{{settings.mockDate||'选择测试日期'}}<text>›</text></view>
+    </picker>
+    <button wx:if="{{settings.mockDate}}" class="btn secondary" bindtap="clearDebugDate">恢复真实日期</button>
+    <view class="debug-danger-zone">
+      <view class="section-title">重置测试账号</view>
+      <view class="muted">立即永久删除当前账号的全部测试数据，不提供恢复期。</view>
+      <button class="btn danger debug-delete-data" bindtap="debugDeleteAll">永久删除所有数据</button>
+    </view>
+  </view>
+  <view class="privacy-link" bindtap="privacy">查看隐私说明</view>
+</view>

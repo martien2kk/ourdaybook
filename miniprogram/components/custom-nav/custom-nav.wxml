@@ -1,0 +1,8 @@
+<view class="custom-nav-host" style="height:{{navTotalHeight}}px">
+  <view class="custom-nav theme-{{theme}}" style="height:{{navTotalHeight}}px;padding-top:{{statusBarHeight}}px">
+    <view class="custom-nav-bar" style="height:{{navBarHeight}}px">
+      <view wx:if="{{showBack}}" class="custom-nav-back" bindtap="back" aria-label="返回"><view class="custom-nav-chevron"></view></view>
+      <text>{{title}}</text>
+    </view>
+  </view>
+</view>

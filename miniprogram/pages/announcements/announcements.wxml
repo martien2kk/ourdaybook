@@ -1,0 +1,30 @@
+<view class="page announcement-page theme-{{user.theme}}">
+  <image wx:if="{{user.theme==='calm'}}" class="space-theme-bg" src="/assets/images/space-night-responsive-safe-v9.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='blue'}}" class="space-theme-bg blue-theme-bg" src="/assets/images/blue-cats-responsive-safe-v2-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='warm'}}" class="space-theme-bg warm-theme-bg" src="/assets/images/warm-rabbits-responsive-safe-v7-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:else class="space-theme-bg minimal-theme-bg" src="/assets/images/minimal-gentle-responsive-safe-v2.jpg" mode="aspectFill"/>
+
+  <view class="card daily-reminder-card">
+    <view class="section-title">每日记录提醒</view>
+    <view class="muted reminder-copy">预约后，如果明天 20:00 仍未完成记录，微信会发送一次服务通知。每次预约只提醒一天。</view>
+    <button wx:if="{{!reminderScheduled}}" class="btn primary reminder-button" loading="{{scheduling}}" disabled="{{scheduling}}" bindtap="subscribeReminder">预约明天提醒</button>
+    <view wx:else class="scheduled-box">
+      <text>已预约明天 {{reminderTime}}</text>
+      <button class="cancel-reminder" bindtap="cancelDailyReminder">取消预约</button>
+    </view>
+  </view>
+
+  <view class="announcement-section-header">
+    <view class="announcement-header-icon">!</view>
+    <view>
+      <view class="announcement-header-title">公告</view>
+      <view class="announcement-header-subtitle">ANNOUNCEMENTS</view>
+    </view>
+  </view>
+
+  <view class="announcement-card card" wx:for="{{announcements}}" wx:key="id">
+    <view class="announcement-date">{{item.date}}</view>
+    <view class="announcement-title">{{item.title}}</view>
+    <view class="announcement-body">{{item.body}}</view>
+  </view>
+</view>

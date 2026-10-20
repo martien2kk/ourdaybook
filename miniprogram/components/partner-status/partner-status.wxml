@@ -1,0 +1,1 @@
+<view class="status"><text>{{name||'对方'}}</text><text>{{unlocked?'共同完成':submitted?'已留下今天':'还在生活里取景'}}</text></view>

@@ -1,0 +1,37 @@
+<view class="page theme-{{user.theme}}">
+  <image wx:if="{{user.theme==='calm'}}" class="space-theme-bg" src="/assets/images/space-night-responsive-safe-v9.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='blue'}}" class="space-theme-bg blue-theme-bg" src="/assets/images/blue-cats-responsive-safe-v2-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='warm'}}" class="space-theme-bg warm-theme-bg" src="/assets/images/warm-rabbits-responsive-safe-v7-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:else class="space-theme-bg minimal-theme-bg" src="/assets/images/minimal-gentle-responsive-safe-v2.jpg" mode="aspectFill"/>
+  <view class="eyebrow">PROFILE</view>
+  <view class="title">先认识一下你</view>
+  <view class="card">
+    <view class="avatar" bindtap="avatar">
+      <image wx:if="{{user.avatar}}" src="{{user.avatar}}" mode="aspectFill"/>
+      <text wx:else>选择头像</text>
+    </view>
+    <view class="muted">昵称</view>
+    <input class="input" value="{{user.nickname}}" data-key="nickname" bindinput="field" maxlength="20"/>
+    <view class="field-heading">
+      <text class="muted">所在城市（选填，手动填写）</text>
+      <text class="field-count">{{cityLength}}/20</text>
+    </view>
+    <input class="input" value="{{user.city}}" data-key="city" bindinput="field" maxlength="20" placeholder="例如：上海"/>
+    <block wx:if="{{showPartnerFields}}">
+      <view class="muted">纪念日（选填）</view>
+      <picker mode="date" value="{{user.anniversary}}" start="1950-01-01" end="2100-12-31" bindchange="anniversary">
+        <view class="input date-picker {{user.anniversary?'':'placeholder'}}">{{user.anniversary||'选择年、月、日'}}<text>›</text></view>
+      </picker>
+    </block>
+    <view class="muted">个人主题</view>
+    <view class="themes">
+      <view wx:for="{{themes}}" wx:key="id" class="{{user.theme===item.id?'active':''}}" data-id="{{item.id}}" bindtap="theme">{{item.name}}</view>
+    </view>
+    <view wx:if="{{showPartnerFields}}" class="row">
+      <text>向伴侣展示城市</text>
+      <switch checked="{{user.locationVisible}}" bindchange="toggle" color="{{accent}}"/>
+    </view>
+  </view>
+  <view class="notice">不会自动定位，也不会读取照片中的 GPS 信息。</view>
+  <button class="btn" bindtap="save">保存并继续</button>
+</view>

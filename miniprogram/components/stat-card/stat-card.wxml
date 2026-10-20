@@ -1,0 +1,1 @@
+<view class="stat"><text class="number">{{value}}</text><text>{{label}}</text></view>

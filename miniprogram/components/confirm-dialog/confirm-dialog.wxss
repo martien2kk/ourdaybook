@@ -1,0 +1,1 @@
+.mask{position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:99}.dialog{width:560rpx;background:white;border-radius:26rpx;padding:35rpx}.dialog text{display:block;margin-bottom:22rpx}.dialog .heading{font-weight:700}.dialog>view{display:flex}.dialog button{flex:1}.confirm{color:#c64d43}

@@ -1,0 +1,39 @@
+<view class="page theme-{{user.theme}}" wx:if="{{memory}}">
+  <image wx:if="{{user.theme==='calm'}}" class="space-theme-bg" src="/assets/images/space-night-responsive-safe-v9.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='blue'}}" class="space-theme-bg blue-theme-bg" src="/assets/images/blue-cats-responsive-safe-v2-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:elif="{{user.theme==='warm'}}" class="space-theme-bg warm-theme-bg" src="/assets/images/warm-rabbits-responsive-safe-v7-optimized-v1.jpg" mode="aspectFill"/>
+  <image wx:else class="space-theme-bg minimal-theme-bg" src="/assets/images/minimal-gentle-responsive-safe-v2.jpg" mode="aspectFill"/>
+  <view class="eyebrow">MEMORY CARD · {{memory.dateKey}}</view>
+  <view class="title">{{memory.task.prompt.text}}</view>
+  <view class="themes">
+    <view wx:for="{{themes}}" wx:key="0" class="theme {{theme===item[0]?'active':''}}" data-theme="{{item[0]}}" bindtap="theme">{{item[1]}}</view>
+  </view>
+  <view class="location-option">
+    <view>
+      <view>在卡片中显示城市</view>
+      <view class="muted">仅显示允许展示的手动城市</view>
+    </view>
+    <view class="toggle-control">
+      <text class="switch-state {{showLocation?'on':''}}">{{showLocation?'已开启':'已关闭'}}</text>
+      <switch checked="{{showLocation}}" bindchange="location" color="{{user.theme==='minimal'?'#9a725a':user.theme==='calm'?'#f08fb3':user.theme==='blue'?'#8fb5ff':'#c97968'}}"/>
+    </view>
+  </view>
+  <canvas type="2d" id="historyCanvas" class="canvas canvas-source"></canvas>
+  <canvas type="2d" id="historyCanvasFull" class="canvas canvas-full-{{theme}} canvas-source"></canvas>
+  <image wx:if="{{previewPath}}" class="canvas-preview" src="{{previewPath}}" mode="widthFix"/>
+  <view wx:else class="canvas-placeholder muted">正在生成卡片…</view>
+  <button class="btn" bindtap="save">保存卡片到相册</button>
+  <button class="btn secondary" bindtap="copy">复制分享文案</button>
+  <page-container show="{{previewVisible}}" position="bottom" round="{{false}}" overlay="{{true}}" close-on-slide-down="{{false}}" bindafterleave="closePreview">
+    <view class="preview-sheet" catchtouchmove="stop">
+      <scroll-view scroll-y class="preview-scroll">
+        <view class="preview-safe-top"></view>
+        <image class="preview-full-image" src="{{fullPreviewPath}}" mode="widthFix"/>
+      </scroll-view>
+      <view class="preview-actions">
+        <button class="preview-close" bindtap="closePreview">关闭</button>
+        <button class="preview-save preview-save-{{theme}} {{downloaded?'downloaded':''}}" loading="{{saving}}" disabled="{{downloaded}}" bindtap="confirmSave">{{downloaded?'已下载':'保存到相册'}}</button>
+      </view>
+    </view>
+  </page-container>
+</view>
